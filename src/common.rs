@@ -25,10 +25,6 @@
 
 // rfc7230 section 3.2.6:
 //     obs-text       = %x80-FF
-enum StartLine {
-    RequestLine(Token, RequestTarget, HTTPVersion),
-    StatusLine(HTTPVersion, uint, Option<SendStr>),
-}
 
 struct HttpVersion {
     major: u8,
@@ -65,12 +61,13 @@ impl HttpVersion {
 //                    / "+" / "-" / "." / "^" / "_" / "`" / "|" / "~"
 //                    / DIGIT / ALPHA
 //                    ; any VCHAR, except delimiters
-struct HeaderField {
 
-}
-
+// rfc7230, section 3.2 
+//   Each header field consists of a case-insensitive field name followed
+//   by a colon (":"), optional leading whitespace, the field value, and
+//   optional trailing whitespace.
 struct Header {
-    fields: HashMap<String, String>,
+    fields: HashMap<SendStr, SendStr>,
 }
 
 // rfc7230, section 3
@@ -79,21 +76,7 @@ struct Header {
 //                      *( header-field CRLF )
 //                      CRLF
 //                      [ message-body ]
-fn render_http_msg<T: Show>(start_line: StartLine, header: Header, body: Option<T>) -> String {
-    "\r\n".to_owned()
-}
 
-// rfc7231, section 4
-enum StandardizedRequestMethod {
-    GET,
-    HEAD,
-    POST,
-    PUT,
-    DELETE,
-    CONNECT,
-    OPTIONS,
-    TRACE,
-}
 
 /* From 3.1.1:
  

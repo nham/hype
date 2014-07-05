@@ -1,6 +1,7 @@
-struct Response<'a, T> {
+struct Response<T> {
     code: uint,
     reason: Option<SendStr>,
-    headers: Vec<HeaderField>,
+    version: HttpVersion,
+    headers: Header,
     body: T,
 }
