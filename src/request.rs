@@ -37,7 +37,7 @@ struct Request<T> {
 }
 
 enum RequestTarget {
-    OriginForm(Vec<String>),
+    OriginForm(Vec<String>), // vector can't be empty
     AbsoluteForm(AbsoluteURI),
     AuthorityForm(Authority),
     AsteriskForm,
@@ -51,9 +51,9 @@ struct AbsoluteURI {
 
 enum HierPart {
     WithAuthority(Authority, Vec<String>),
-    Absolute(Vec<String>),
-    Rootless(String, Vec<String>),
-    Empty,
+    AbsolutePath(String, Vec<String>), // first String can't be empty
+    RootlessPath(String, Vec<String>), // first String can't be empty
+    EmptyPath,
 }
 
 struct Authority {
